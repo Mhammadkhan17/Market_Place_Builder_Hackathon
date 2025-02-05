@@ -1,7 +1,18 @@
 "use client";
 import React from "react";
 
-const BillingInfo = ({ formData, onInputChange }) => {
+interface BillingInfoProps {
+  formData: {
+    name: string;
+    phone: string;
+    address: string;
+    city: string;
+  };
+  onInputChange: (field: string, value: string) => void;
+}
+
+
+const BillingInfo = ({ formData, onInputChange }: BillingInfoProps) => {
   return (
     <div>
       <div className="w-[780px] h-[336px] bg-white p-6 rounded-lg shadow-md my-6">
@@ -33,7 +44,7 @@ const BillingInfo = ({ formData, onInputChange }) => {
                 name="name"
                 placeholder="Your name"
                 value={formData.name || ""}
-                onChange={(e) => onInputChange("billingInfo", "name", e.target.value)}
+                onChange={(e) => onInputChange("name", e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-gray-50 px-10 py-3"
                 required
               />
@@ -53,7 +64,7 @@ const BillingInfo = ({ formData, onInputChange }) => {
                 name="phone"
                 placeholder="Phone number"
                 value={formData.phone || ""}
-                onChange={(e) => onInputChange("billingInfo", "phone", e.target.value)}
+                onChange={(e) => onInputChange("phone", e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-gray-50 px-10 py-3"
                 required
               />
@@ -73,7 +84,7 @@ const BillingInfo = ({ formData, onInputChange }) => {
                 name="address"
                 placeholder="Address"
                 value={formData.address || ""}
-                onChange={(e) => onInputChange("billingInfo", "address", e.target.value)}
+                onChange={(e) => onInputChange("address", e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-gray-50 px-10 py-3"
                 required
               />
@@ -93,7 +104,7 @@ const BillingInfo = ({ formData, onInputChange }) => {
                 name="city"
                 placeholder="Town or city"
                 value={formData.city || ""}
-                onChange={(e) => onInputChange("billingInfo", "city", e.target.value)}
+                onChange={(e) => onInputChange("city", e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-gray-50 px-10 py-3"
                 required
               />

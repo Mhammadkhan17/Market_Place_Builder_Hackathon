@@ -9,6 +9,7 @@ import BillingInfo from "./BillingInfo";
 import RentalInfo from "./RentalInfo";
 import client from "@/lib/sanity";
 
+// Type definitions
 interface Car {
   _id: string;
   name: string;
@@ -56,6 +57,15 @@ interface FormData {
   agreedToTerms: boolean;
 }
 
+interface NestedObject {
+  [key: string]: string | NestedObject;
+}
+
+interface FormSectionProps {
+  formData: NestedObject;
+  onInputChange: (field: string, value: string) => void;
+}
+
 const PaymentContent = () => {
   const searchParams = useSearchParams();
   const carId = searchParams.get("carId");
@@ -97,6 +107,8 @@ const PaymentContent = () => {
 
   useEffect(() => {
     const fetchCarDetails = async () => {
+      if (!carId) return;
+
       try {
         const query = `*[_type == "car" && _id == $carId][0] {
           _id,
@@ -118,7 +130,7 @@ const PaymentContent = () => {
       }
     };
 
-    carId && fetchCarDetails();
+    fetchCarDetails();
   }, [carId]);
 
   const handleInputChange = (
@@ -127,13 +139,13 @@ const PaymentContent = () => {
     value: string
   ) => {
     setFormData((prevData) => {
-      const sectionData = { ...(prevData[section] as object) };
+      const sectionData = { ...(prevData[section] as NestedObject) };
       const fieldParts = field.split(".");
-      let current: Record<string, any> = sectionData;
+      let current: NestedObject = sectionData;
 
       for (let i = 0; i < fieldParts.length - 1; i++) {
         current[fieldParts[i]] = current[fieldParts[i]] || {};
-        current = current[fieldParts[i]];
+        current = current[fieldParts[i]] as NestedObject;
       }
 
       current[fieldParts[fieldParts.length - 1]] = value;
@@ -269,7 +281,7 @@ export default dynamic(() => Promise.resolve(MainPage), {
   ssr: false,
   loading: () => (
     <div className="w-full min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500" />
     </div>
   ),
 });
