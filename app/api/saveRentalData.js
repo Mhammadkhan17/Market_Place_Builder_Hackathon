@@ -9,15 +9,6 @@ const client = createClient({
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,                 // Replace with your Sanity API token
 });
 
-
-const rentalData = {
-  name: "John Doe",
-  address: "123 Main St",
-  phone: "555-1234",
-  city: "New York",
-  // Add other required fields
-};
-
 // Function to save rental data
 export const saveRentalData = async (rentalData) => {
   console.log('Rental data to save:', rentalData); // Debug: Log rental data
