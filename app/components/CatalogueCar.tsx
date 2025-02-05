@@ -13,6 +13,10 @@ interface Car {
   seatingCapacity: string;
   price_per_day: string;
   imageUrl: string;
+  imageMetadata?: {  // Make optional with ?
+    width: number;
+    height: number;
+  };
   tags: string[];
 }
 
