@@ -13,13 +13,16 @@ interface RentalInfoData {
 }
 
 type RentalFieldPath<T extends keyof RentalInfoData> = 
-  T extends any ? `${T}.${Exclude<keyof RentalInfoData[T], symbol>}` : never;
+  `${T}.${Exclude<keyof RentalInfoData[T], symbol>}`;
 
 type RentalInfoField = RentalFieldPath<keyof RentalInfoData>;
 
 interface RentalInfoProps {
-  formData: RentalInfoData;
-  onInputChange: (field: RentalInfoField, value: string) => void;
+  formData: {
+    pickup: PickupDropoffData;
+    dropoff: PickupDropoffData;
+  };
+  onInputChange: (field: `pickup.${keyof PickupDropoffData}` | `dropoff.${keyof PickupDropoffData}`, value: string) => void;
 }
 
 const RentalInfo = ({ formData, onInputChange }: RentalInfoProps) => {

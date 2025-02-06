@@ -61,11 +61,6 @@ interface NestedObject {
   [key: string]: string | NestedObject;
 }
 
-interface FormSectionProps {
-  formData: NestedObject;
-  onInputChange: (field: string, value: string) => void;
-}
-
 const PaymentContent = () => {
   const searchParams = useSearchParams();
   const carId = searchParams.get("carId");
