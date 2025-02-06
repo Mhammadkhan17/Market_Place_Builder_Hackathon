@@ -7,16 +7,6 @@ interface PickupDropoffData {
   time: string;
 }
 
-interface RentalInfoData {
-  pickup: PickupDropoffData;
-  dropoff: PickupDropoffData;
-}
-
-type RentalFieldPath<T extends keyof RentalInfoData> = 
-  `${T}.${Exclude<keyof RentalInfoData[T], symbol>}`;
-
-type RentalInfoField = RentalFieldPath<keyof RentalInfoData>;
-
 interface RentalInfoProps {
   formData: {
     pickup: PickupDropoffData;
